@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
 	"github.com/sashabaranov/go-openai"
 )
@@ -39,4 +41,8 @@ func main() {
 	}
 	fmt.Println(resp.Choices[0].Message.Content)
 	fmt.Println()
+	mux := chi.NewRouter()
+
+	http.ListenAndServe(":8080", mux)
+
 }
