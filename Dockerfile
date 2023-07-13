@@ -7,13 +7,11 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/engine/reference/builder/#copy
 # Copy the source code
 COPY . .
 
-# Set environment property
-ENV ENVIRONMENT=production
+# Install dotenv package
+RUN go get github.com/joho/godotenv/cmd/godotenv
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /openai ./cmd/web/main.go
