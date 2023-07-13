@@ -1,4 +1,3 @@
-
 FROM golang:1.19-alpine
 
 # Set destination for COPY
@@ -12,6 +11,9 @@ RUN go mod download
 # https://docs.docker.com/engine/reference/builder/#copy
 # Copy the source code
 COPY . .
+
+# Set environment property
+ENV ENVIRONMENT=production
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /openai ./cmd/web/main.go
