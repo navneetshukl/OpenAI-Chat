@@ -10,6 +10,9 @@ RUN go mod download
 # Copy the source code
 COPY . .
 
+# Copy the .env file
+COPY .env ./.env
+
 # Install dotenv package
 RUN go get github.com/joho/godotenv/cmd/godotenv
 
