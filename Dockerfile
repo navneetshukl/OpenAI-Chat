@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 FROM golang:1.19-alpine
 
 # Set destination for COPY
@@ -7,14 +9,10 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
+# Copy the source code. Note the slash at the end, as explained in
+# https://docs.docker.com/engine/reference/builder/#copy
 # Copy the source code
 COPY . .
-
-# Copy the .env file
-COPY .env ./.env
-
-# Install dotenv package
-RUN go get github.com/joho/godotenv/cmd/godotenv
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /openai ./cmd/web/main.go

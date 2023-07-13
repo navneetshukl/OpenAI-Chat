@@ -7,12 +7,14 @@ import (
 )
 
 type Chat struct {
-	Ans string
+	Ans []string
 	Value string
+	Size int
 }
 
-var global string
+var global []string
 var value string
+
 
 func Home(w http.ResponseWriter, r *http.Request) {
 
@@ -33,7 +35,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 func GetData(w http.ResponseWriter, r *http.Request) {
 	text := r.FormValue("data")
 	mainText := utilities.GetData(text)
-	global = mainText
-	value = text
+	global = append(global, mainText)
+	value=text
 	http.Redirect(w, r, "/", http.StatusFound)
 }
